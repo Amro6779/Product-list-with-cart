@@ -6,3 +6,20 @@
 body{
     background-color: #FCF8F5;
 }
+
+.items{
+    /* width: ; */
+}
+
+.img{
+    width: 100%;
+}
+
+.item-info p{
+    margin-bottom: 0;
+}
+
+.cart-item button{
+    position: absolute;
+    top: 57%;
+}
