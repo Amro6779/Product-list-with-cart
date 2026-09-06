@@ -1,25 +1,60 @@
-* , *::before , *::after{
-    margin: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: #FCF8F5;
+body {
+  background-color: #fcf8f5;
 }
 
-.items{
-    /* width: ; */
+/* .cart-item{
+    width: 15%;
+} */
+
+.cart-item img {
+  width: 100%;
 }
 
-.img{
-    width: 100%;
+.item-info p {
+  margin-bottom: 0;
 }
 
-.item-info p{
-    margin-bottom: 0;
+.cart-item button {
+  position: absolute;
+  top: 60%;
+  left: 50px;
+  width: 60%;
+  padding-inline: 20px;
 }
 
-.cart-item button{
-    position: absolute;
-    top: 57%;
+.cart-item button p {
+  width: 100%;
+  font-weight: 400;
+}
+
+.inc-dec img{
+  width: 30px;
+}
+
+.item-info .price {
+  color: rgb(217, 81, 43);
+}
+
+.cart {
+  font-size: small;
+}
+
+.cart h5 {
+  color: rgb(217, 81, 43);
+}
+
+.cart .empty p {
+  color: brown;
+}
+
+.natural {
+    background-color: rgb(244, 237, 235);
+
 }
