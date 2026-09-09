@@ -55,6 +55,8 @@ const products = [
   },
 ];
 
+let itemCount = document.querySelector("#item-count");
+let itemPrice = document.querySelector("#item-total-price");
 let rowData = document.getElementById("rowData");
 let rowData2 = document.getElementById("rowData2");
 
@@ -106,6 +108,8 @@ decrementButton.forEach(function (button) {
   button.addEventListener("click", decreaseItem);
 });
 
+rowData2.addEventListener("click", deleteItem);
+
 function addProduct(event) {
   let card = event.target.closest(".cart-item");
   let index = Number(card.dataset.index);
@@ -137,14 +141,24 @@ function addProduct(event) {
 
 function renderCart() {
   let cartoona = ``;
+  let totalQuantity = cartItems.reduce(function(accumulator , item){
+    return accumulator + item.quantity;
+  } , 0);
+
+  let totalPrice = cartItems.reduce(function(accumulator , item){
+    return accumulator + (item.quantity * item.price);
+  } , 0);
+
+  itemCount.innerText = totalQuantity;
+  itemPrice.innerText = totalPrice;
 
   cartItems.forEach(function (item) {
     let itemTotal = (item.price * item.quantity).toFixed(2);
 
-    cartoona += `<div class="title d-flex justify-content-between align-items-center">
+    cartoona += `<div class="title d-flex justify-content-between align-items-center" data-index=${item.id}>
                         <p class="m-0">${item.name}</p>
                         <div class="icon align-self-end ">
-                            <img class="btn border border-black rounded-5 p-1" src="./images/icon-remove-item.svg"
+                            <img class="remove-item btn border border-black rounded-5 p-1" src="./images/icon-remove-item.svg"
                                 alt="remove-item">
                         </div>
                     </div>
@@ -193,3 +207,25 @@ function decreaseItem(event) {
     }
   }
 }
+
+function deleteItem(event) {
+  let removeButton = event.target.closest(".remove-item");
+
+  if (!removeButton) {
+    return;
+  }
+
+  let titleDiv = removeButton.closest(".title");
+  let index = Number(titleDiv.dataset.index);
+  let btnIndex = document.querySelector(`.cart-item[data-index="${index}"]`)
+
+  cartItems = cartItems.filter(function (item) {
+    return item.id !== index;
+  });
+
+  btnIndex.querySelector(".inc-dec").classList.add("d-none");
+  btnIndex.querySelector(".add-to-cart").classList.remove("d-none");
+  btnIndex.querySelector('#img').classList.remove("border-danger");
+  renderCart();
+}
+
