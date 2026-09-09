@@ -3,7 +3,7 @@ const products = [
     image: "../images/image-waffle-desktop.jpg",
     name: "Waffle with Berries",
     category: "Waffle",
-    price: 6.50,
+    price: 6.5,
   },
   {
     image: "../images/image-creme-brulee-desktop.jpg",
@@ -98,6 +98,14 @@ addButton.forEach(function (button) {
   button.addEventListener("click", addProduct);
 });
 
+incrementButton.forEach(function (button) {
+  button.addEventListener("click", increaseItem);
+});
+
+decrementButton.forEach(function (button) {
+  button.addEventListener("click", decreaseItem);
+});
+
 function addProduct(event) {
   let card = event.target.closest(".cart-item");
   let index = Number(card.dataset.index);
@@ -105,10 +113,9 @@ function addProduct(event) {
 
   document.querySelector(".order").classList.remove("d-none");
   document.querySelector(".empty").classList.add("d-none");
-  card.querySelector("#img").classList.add("border")
+  card.querySelector("#img").classList.add("border");
   card.querySelector(".inc-dec").classList.remove("d-none");
   card.querySelector(".add-to-cart").classList.add("d-none");
-
 
   let existingItem = cartItems.find(function (item) {
     return item.id === index;
@@ -117,7 +124,6 @@ function addProduct(event) {
   if (existingItem) {
     existingItem.quantity += 1;
   } else {
-
     cartItems.push({
       id: index,
       name: product.name,
@@ -153,5 +159,37 @@ function renderCart() {
   rowData2.innerHTML = cartoona;
 }
 
+function increaseItem(event) {
+  let card = event.target.closest(".cart-item");
+  let index = Number(card.dataset.index);
 
+  let existingItem = cartItems.find(function (item) {
+    return item.id === index;
+  });
 
+  if (existingItem) {
+    existingItem.quantity += 1;
+    let itemQuantity = card.querySelector(".inc-dec p");
+    itemQuantity.textContent = existingItem.quantity;
+    renderCart();
+  }
+}
+
+function decreaseItem(event) {
+  let card = event.target.closest(".cart-item");
+  let index = Number(card.dataset.index);
+  let itemQuantity = card.querySelector(".inc-dec p");
+
+  let existingItem = cartItems.find(function (item) {
+    return item.id === index;
+  });
+
+  if (existingItem) {
+    if (existingItem.quantity == 1) {
+    } else {
+      existingItem.quantity -= 1;
+      itemQuantity.textContent = existingItem.quantity;
+      renderCart();
+    }
+  }
+}
