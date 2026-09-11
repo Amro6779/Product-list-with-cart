@@ -74,7 +74,7 @@ function displayProducts() {
   var cartoona = ``;
   for (let i = 0; i < products.length; i++) {
     cartoona += `
-        <div class="cart-item d-flex flex-column justify-content-center position-relative col-3" data-index="${i}">
+        <div class="cart-item d-flex flex-column justify-content-center position-relative col-12 col-md-6 col-lg-3" data-index="${i}">
         <img id="img" class="rounded-4 border-danger" src="${products[i].image}" alt="${products[i].category}">
         <button class="add-to-cart btn btn-light rounded-pill border-warning d-flex align-items-center">
                     <img class="w-25" src="./images/icon-add-to-cart.svg" alt="add-to-cart">
@@ -275,5 +275,4 @@ function restartOrder(){
   document.querySelector(".empty").classList.remove("d-none");
   renderCart();
   finalOrder.classList.add("d-none");
-  // alert("hello");
 }

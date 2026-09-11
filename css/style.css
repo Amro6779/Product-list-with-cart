@@ -89,3 +89,18 @@ body {
 }
 
 
+@media (max-width: 767px) {
+  .container {
+    padding-inline: 20px;
+  }
+
+  .cart-item button.add-to-cart,
+  .cart-item .inc-dec {
+    width: 80%;
+    left: 10%;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+}
