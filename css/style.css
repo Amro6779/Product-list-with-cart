@@ -10,9 +10,6 @@ body {
   margin-block: 70px;
 }
 
-/* .cart-item{
-    width: 15%;
-} */
 
 .cart-item img {
   width: 100%;
@@ -59,3 +56,36 @@ body {
     background-color: rgb(244, 237, 235);
 
 }
+
+.item-details{
+  background-color: rgb(244, 237, 235);
+}
+
+.item-details img{
+  width: 40px;
+}
+
+.final-order{
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);;
+}
+
+.order-details {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.final-details{
+  width: calc(100%-40px) !important ;
+}
+
+.final-price{
+  background-color: rgb(244, 237, 235);
+  padding-inline: 10px;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+
+

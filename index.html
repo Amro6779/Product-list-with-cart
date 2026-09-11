@@ -36,7 +36,29 @@
                     </div>
                     <p class="mb-0">This is a <span>carbon-neutral</span> delivary</p>
                 </div>
-                <button class="btn btn-danger rounded-pill w-100 mt-3">Confirm Order</button>
+                <button class="confirm-order btn btn-danger rounded-pill w-100 mt-3">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="final-order position-fixed p-5 top-0 bottom-0 start-0 end-0 d-flex align-items-center justify-content-center d-none">
+        <div class="order-details bg-body p-5 rounded-3">
+            <div class="title">
+                <img src="./images/icon-order-confirmed.svg" alt="confirmed">
+                <div class="caption mt-3">
+                    <h3 class="fw-bold">Order Confirmed</h3>
+                    <p class="text-secondary">we hope you enjoy your food</p>
+                </div>
+            </div>
+            <div id="rowData3" class="order-items d-flex flex-column">
+
+            </div>
+            
+                <div class="final-price d-flex justify-content-between">
+                    <p>Total Price</p>
+                    <p>$<span id="total-price"></span></p>
+                </div>
+                <button class="restart-order-button btn btn-danger rounded-pill mt-3 w-100">Start new order</button>
             </div>
         </div>
     </div>

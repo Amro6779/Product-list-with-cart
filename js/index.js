@@ -55,10 +55,10 @@ const products = [
   },
 ];
 
-let itemCount = document.querySelector("#item-count");
-let itemPrice = document.querySelector("#item-total-price");
 let rowData = document.getElementById("rowData");
 let rowData2 = document.getElementById("rowData2");
+let rowData3 = document.getElementById("rowData3");
+let finalOrder = document.querySelector(".final-order");
 
 let cartItems = [];
 
@@ -67,6 +67,8 @@ displayProducts();
 let addButton = document.querySelectorAll(".add-to-cart");
 let incrementButton = document.querySelectorAll(".increment");
 let decrementButton = document.querySelectorAll(".decrement");
+let orderButton = document.querySelector(".confirm-order");
+let restartOrderButton = document.querySelector(".restart-order-button");
 
 function displayProducts() {
   var cartoona = ``;
@@ -78,8 +80,7 @@ function displayProducts() {
                     <img class="w-25" src="./images/icon-add-to-cart.svg" alt="add-to-cart">
                     <p class="mb-0">Add To Cart</p>
                     </button>
-                    <button
-                    class="inc-dec rounded-pill border-warning bg-danger d-flex align-items-center justify-content-around d-none">
+                    <button class="inc-dec rounded-pill border-warning bg-danger d-flex align-items-center justify-content-around d-none">
                     <img class="decrement btn text-light border border-light rounded-5 p-1"
                         src="./images/icon-decrement-quantity.svg" alt="decrement">
                     <p class="mb-0 text-light">1</p>
@@ -110,6 +111,11 @@ decrementButton.forEach(function (button) {
 
 rowData2.addEventListener("click", deleteItem);
 
+orderButton.addEventListener("click", displayOrder);
+
+restartOrderButton.addEventListener("click" , restartOrder);
+
+
 function addProduct(event) {
   let card = event.target.closest(".cart-item");
   let index = Number(card.dataset.index);
@@ -131,6 +137,7 @@ function addProduct(event) {
     cartItems.push({
       id: index,
       name: product.name,
+      image: product.image,
       price: product.price,
       quantity: 1,
     });
@@ -141,16 +148,16 @@ function addProduct(event) {
 
 function renderCart() {
   let cartoona = ``;
-  let totalQuantity = cartItems.reduce(function(accumulator , item){
+  let totalQuantity = cartItems.reduce(function (accumulator, item) {
     return accumulator + item.quantity;
-  } , 0);
+  }, 0);
 
-  let totalPrice = cartItems.reduce(function(accumulator , item){
-    return accumulator + (item.quantity * item.price);
-  } , 0);
+  let totalPrice = cartItems.reduce(function (accumulator, item) {
+    return accumulator + item.quantity * item.price;
+  }, 0);
 
-  itemCount.innerText = totalQuantity;
-  itemPrice.innerText = totalPrice;
+  document.querySelector("#item-count").innerText = totalQuantity;
+  document.querySelector("#item-total-price").innerText = totalPrice;
 
   cartItems.forEach(function (item) {
     let itemTotal = (item.price * item.quantity).toFixed(2);
@@ -217,7 +224,7 @@ function deleteItem(event) {
 
   let titleDiv = removeButton.closest(".title");
   let index = Number(titleDiv.dataset.index);
-  let btnIndex = document.querySelector(`.cart-item[data-index="${index}"]`)
+  let btnIndex = document.querySelector(`.cart-item[data-index="${index}"]`);
 
   cartItems = cartItems.filter(function (item) {
     return item.id !== index;
@@ -225,7 +232,48 @@ function deleteItem(event) {
 
   btnIndex.querySelector(".inc-dec").classList.add("d-none");
   btnIndex.querySelector(".add-to-cart").classList.remove("d-none");
-  btnIndex.querySelector('#img').classList.remove("border-danger");
+  btnIndex.querySelector("#img").classList.remove("border-danger");
   renderCart();
 }
 
+function displayOrder() {
+  finalOrder.classList.remove("d-none");
+  let cartoona = ``;
+  let totalPrice = cartItems.reduce(function (accumulator, item) {
+    return accumulator + item.quantity * item.price;
+  }, 0);
+
+  document.querySelector("#total-price").innerText = totalPrice;
+
+  cartItems.forEach(function (item) {
+    let totalItem = (item.price * item.quantity).toFixed(2);
+
+    cartoona += `<div class="item-details d-flex align-items-center gap-3 p-3 border-black border-bottom ">
+                  <img class="rounded-2" src="${item.image}" alt="${item.name}">
+                  <div class="final-details d-flex flex-column flex-grow-1 min-w-0">
+                      <div class="d-flex justify-content-between align-items-start gap-2">
+                          <p class="mb-1 text-truncate">${item.name}</p>
+                          <p class="mb-1 flex-shrink-0">$${totalItem}</p>
+                      </div>
+                      <p class="mb-0 text-secondary">${item.quantity}x @ $${item.price}</p>
+                  </div>
+              </div>`;
+  });
+
+  rowData3.innerHTML = cartoona;
+}
+
+
+function restartOrder(){
+  cartItems = [];
+  document.querySelectorAll(".cart-item").forEach(function(item){
+    item.querySelector(".inc-dec").classList.add("d-none");
+    item.querySelector(".add-to-cart").classList.remove("d-none");
+    item.querySelector("#img").classList.remove("border-danger");
+  })
+  document.querySelector(".order").classList.add("d-none");
+  document.querySelector(".empty").classList.remove("d-none");
+  renderCart();
+  finalOrder.classList.add("d-none");
+  // alert("hello");
+}
