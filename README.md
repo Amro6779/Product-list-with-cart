@@ -34,8 +34,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add your GitHub repo link here](https://your-repo-link.com)
-- Live Site URL: [Add your live site link here](https://your-live-site-link.com)
+- Solution URL: (https://github.com/Amro6779/Product-list-with-cart)
+- Live Site URL: (https://amro6779.github.io/Product-list-with-cart/)
 
 ## My process
 
